@@ -1,12 +1,12 @@
 package scalawithcats.functor
 
-import cats.Functor
-import cats.instances.function._
-import cats.instances.list._
-import cats.instances.option._
-import cats.syntax.functor._ // for map
+object Functor {
 
-object FunctorIntro {
+  import cats.Functor
+  import cats.instances.function._
+  import cats.instances.list._
+  import cats.instances.option._
+  import cats.syntax.functor._ // for map
 
   // Structure preserving map operation.  The map removes the context
   // before function application and then repackages the result back
@@ -32,12 +32,12 @@ object FunctorIntro {
   val composed2 = func1 andThen func2
 
   val list = List.fill(10)("a")
-  val result = Functor[List].map(list)(_.toUpperCase)
+  val result = cats.Functor[List].map(list)(_.toUpperCase)
 
   // Functor provides lift as a derived combinator
   // def lift[A, B](f: A => B): F[A] => F[B] = fa => map(fa)(f)
   val func3: Int => Int = x => x * x
-  val lifted: Option[Int] => Option[Int] = Functor[Option].lift(func3)
+  val lifted: Option[Int] => Option[Int] = cats.Functor[Option].lift(func3)
   lifted(Some(2))
 
   // Ordinarily, covariant functors append a function to a chain.
@@ -82,6 +82,6 @@ object FunctorIntro {
 // syntax for any type A where a functor instance is available
 object FunctorSyntax {
   implicit class FunctorOps[F[_], A](src: F[A]) {
-    def map[B](f: A => B)(implicit F: Functor[F]): F[B] = F.map(src)(f)
+    def map[B](f: A => B)(implicit F: cats.Functor[F]): F[B] = F.map(src)(f)
   }
 }

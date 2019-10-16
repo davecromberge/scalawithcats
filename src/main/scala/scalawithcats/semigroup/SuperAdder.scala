@@ -1,9 +1,9 @@
 package scalawithcats.semigroup
 
-import cats.{Monoid, Semigroup}
-import cats.syntax.semigroup._
-
 object SuperAdder {
+  import cats.{Monoid, Semigroup}
+  import cats.syntax.semigroup._
+
   case class Order(totalCost: Double, quantity: Double)
 
   def add[A](items: List[A])(implicit semigroup: Semigroup[A]): Option[A] =

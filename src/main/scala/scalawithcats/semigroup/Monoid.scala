@@ -1,13 +1,13 @@
 package scalawithcats.semigroup
 
-import cats.Monoid
-import cats.instances.int._
+object Monoid {
 
-object MonoidIntro {
+  import cats.instances.int._
+
   // a monoid for a type A consists of the type instance for A together
   // with an associative combine operation, together with an identity
   // element for A.
-  val intAdditionMonoid = Monoid[Int]
+  val intAdditionMonoid = cats.Monoid[Int]
 
   // semigroup syntax for combine can be imported from cats.syntax.semigroup._
   import cats.syntax.semigroup._
@@ -18,33 +18,36 @@ object MonoidIntro {
 }
 
 object MonoidInstances {
-  val orMonoid: Monoid[Boolean] = new Monoid[Boolean] {
+
+  val orMonoid: cats.Monoid[Boolean] = new cats.Monoid[Boolean] {
     override def empty: Boolean = true
     override def combine(x: Boolean, y: Boolean): Boolean = x || y
   }
-  val andMonoid: Monoid[Boolean] = new Monoid[Boolean] {
+  val andMonoid: cats.Monoid[Boolean] = new cats.Monoid[Boolean] {
     override def empty: Boolean = false
     override def combine(x: Boolean, y: Boolean): Boolean = x && y
   }
-  val xorMonoid: Monoid[Boolean] = new Monoid[Boolean] {
+  val xorMonoid: cats.Monoid[Boolean] = new cats.Monoid[Boolean] {
     override def empty: Boolean = true
     override def combine(x: Boolean, y: Boolean): Boolean = x | y
   }
-  val xandMonoid: Monoid[Boolean] = new Monoid[Boolean] {
+  val xandMonoid: cats.Monoid[Boolean] = new cats.Monoid[Boolean] {
     override def empty: Boolean = true
     override def combine(x: Boolean, y: Boolean): Boolean = x & y
   }
-  def intersectionMonoid[A]: Monoid[Set[A]] = new Monoid[Set[A]] {
+  def intersectionMonoid[A]: cats.Monoid[Set[A]] = new cats.Monoid[Set[A]] {
     override def empty: Set[A] = Set.empty[A]
     override def combine(x: Set[A], y: Set[A]): Set[A] = x intersect y
   }
-  def unionMonoid[A]: Monoid[Set[A]] = new Monoid[Set[A]] {
+  def unionMonoid[A]: cats.Monoid[Set[A]] = new cats.Monoid[Set[A]] {
     override def empty: Set[A] = Set.empty[A]
     override def combine(x: Set[A], y: Set[A]): Set[A] = x union y
   }
 }
 
 object MonoidLaws {
+  import cats.Monoid
+
   def identityLaw[A](x: A)(implicit m: Monoid[A]): Boolean =
     (m.combine(x, m.empty) == x) && (m.combine(m.empty, x) == x)
 

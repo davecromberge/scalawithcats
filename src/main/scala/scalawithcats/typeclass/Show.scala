@@ -1,16 +1,14 @@
 package scalawithcats.ch1
 
-import cats.Show
-
 import java.util.Date
 
-object ShowIntro {
+object Show {
   // toString variant
-  def showInt: Show[Int] = Show.fromToString[Int]
+  def showInt: cats.Show[Int] = cats.Show.fromToString[Int]
   // function variant
-  def showInt2: Show[Int] = Show.show(i => i.toString)
+  def showInt2: cats.Show[Int] = cats.Show.show(i => i.toString)
   // a custom implementation for show
-  def showDate: Show[Date] = Show.show(date =>
+  def showDate: cats.Show[Date] = cats.Show.show(date =>
     s"${date.getTime}ms since the Epoch"
   )
 }

@@ -1,11 +1,7 @@
 package scalawithcats.monad
 
-import cats.Monad
-import cats.Functor
-import cats.Applicative
-import cats.FlatMap
+object Monad {
 
-object MonadIntro {
   // Monads provide a mechanism to sequence computations.
   // Functors provide sequencing, but what to do after
   // each step is fixed, where monads allow the course
@@ -38,8 +34,10 @@ object MonadIntro {
   // as well as an identity monad:
   type Id[A] = A
 
+  import cats.{Monad, Functor, Applicative, FlatMap}
   import cats.instances.list._
-  Monad[List].flatMap(List(1, 2, 3))(a => List(a * 10))
+
+  cats.Monad[List].flatMap(List(1, 2, 3))(a => List(a * 10))
 
   import cats.instances.option._
   // Syntax imports
